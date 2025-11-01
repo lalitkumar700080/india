@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>भारत GK क्विज़ | India GK Quiz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&family=Orbitron:wght@700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            padding: 15px;
+            color: #fff;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header {
+            text-align: center;
+            padding: 25px 15px;
+            background: linear-gradient(45deg, #00c6ff, #0072ff, #8e2de2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: stripeMove 20s linear infinite;
+        }
+
+        @keyframes stripeMove {
+            0% { transform: translateX(-50%) translateY(-50%); }
+            100% { transform: translateX(0%) translateY(0%); }
+        }
+
+        .flag {
+            width: 130px;
+            height: 78px;
+            margin: 0 auto 12px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            animation: wave 2.5s ease-in-out infinite;
+        }
+
+        .stripe { height: 26px; }
+        .saffron { background: #ff9933; }
+        .white { background: #ffffff; position: relative; }
+        .green { background: #138808; }
+
+        .chakra {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px; height: 20px;
+            border: 2.5px solid #000080;
+            border-radius: 50%;
+            background: radial-gradient(circle, #000080 35%, transparent 35%);
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: skewX(0deg); }
+            50% { transform: skewX(8deg); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            margin: 8px 0;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .question-en {
+            font-size: 1.35em;
+            font-weight: 600;
+            color: #e0f7fa;
+            margin-bottom: 6px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .question-hi {
+            font-size: 1.25em;
+            color: #ffd700;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        .options {
+            display: grid;
+            gap: 14px;
+            margin: 25px 0;
+        }
+
+        .option {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.6s;
+        }
+
+        .option:hover::before {
+            left: 100%;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #00e5ff;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3);
+        }
+
+        .option div:first-child {
+            font-weight: 600;
+            color: #bbdefb;
+        }
+
+        .option div:last-child {
+            font-size: 0.95em;
+            color: #fff59d;
+            margin-top: 5px;
+        }
+
+        .correct {
+            background: linear-gradient(45deg, #00c853, #64dd17) !important;
+            color: white !important;
+            border-color: #00c853 !important;
+            animation: correctPulse 0.6s ease;
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.6);
+        }
+
+        .wrong {
+            background: linear-gradient(45deg, #d50000, #ff1744) !important;
+            color: white !important;
+            border-color: #d50000 !important;
+            animation: shake 0.5s ease;
+            box-shadow: 0 0 20px rgba(213, 0, 0, 0.6);
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        #next {
+            display: block;
+            width: 85%;
+            max-width: 320px;
+            margin: 30px auto 15px;
+            padding: 16px;
+            background: linear-gradient(45deg, #00bcd4, #009688);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.15em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0, 188, 212, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #next::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        #next:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        #next:hover:not(:disabled) {
+            background: linear-gradient(45deg, #00acc1, #00897b);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 188, 212, 0.6);
+        }
+
+        #next:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #score {
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #00e5ff;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+            margin-top: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.95em;
+            color: #b0e0e6;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 480px) {
+            .container { margin: 10px; }
+            h1 { font-size: 1.6em; }
+            .flag { width: 100px; height: 60px; }
+            .chakra { width: 15px; height: 15px; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="flag">
+                <div class="stripe saffron"></div>
+                <div class="stripe white"><div class="chakra"></div></div>
+                <div class="stripe green"></div>
+            </div>
+            <h1>India GK Quiz</h1>
+            <div class="subtitle">भारत सामान्य ज्ञान क्विज़</div>
+        </div>
+
+        <div class="content">
+            <div class="question">
+                <div id="question-en" class="question-en"></div>
+                <div id="question-hi" class="question-hi"></div>
+            </div>
+
+            <div id="options" class="options"></div>
+
+            <button id="next" disabled>अगला प्रश्न</button>
+            <div id="score">स्कोर: 0</div>
+        </div>
+
+        <div class="footer">
+            भारत माता की जय! | बार-बार खेलें, ज्ञान बढ़ाएं
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                en: "Who is known as the Father of the Indian Constitution?",
+                hi: "भारतीय संविधान के पिता किसे कहा जाता है?",
+                options: ["Mahatma Gandhi", "Dr. B.R. Ambedkar", "Jawaharlal Nehru", "Sardar Patel"],
+                hiOptions: ["महात्मा गांधी", "डॉ. बी.आर. अंबेडकर", "जवाहरलाल नेहरू", "सरदार पटेल"],
+                correct: 1
+            },
+            {
+                en: "In which year did India gain independence?",
+                hi: "भारत को कब स्वतंत्रता मिली?",
+                options: ["1945", "1947", "1950", "1942"],
+                hiOptions: ["1945", "1947", "1950", "1942"],
+                correct: 1
+            },
+            {
+                en: "Who was the first President of India?",
+                hi: "भारत के पहले राष्ट्रपति कौन थे?",
+                options: ["Dr. S. Radhakrishnan", "Dr. Rajendra Prasad", "Zakir Husain", "V.V. Giri"],
+                hiOptions: ["डॉ. एस. राधाकृष्णन", "डॉ. राजेंद्र प्रसाद", "ज़ाकिर हुसैन", "वी.वी. गिरि"],
+                correct: 1
+            },
+            {
+                en: "What is the national animal of India?",
+                hi: "भारत का राष्ट्रीय पशु क्या है?",
+                options: ["Lion", "Tiger", "Elephant", "Peacock"],
+                hiOptions: ["शेर", "बाघ", "हाथी", "मोर"],
+                correct: 1
+            },
+            {
+                en: "Which is the longest river in India?",
+                hi: "भारत की सबसे लंबी नदी कौन सी है?",
+                options: ["Yamuna", "Ganga", "Brahmaputra", "Godavari"],
+                hiOptions: ["यमुना", "गंगा", "ब्रह्मपुत्र", "गोदावरी"],
+                correct: 1
+            },
+            {
+                en: "Who was the first Prime Minister of India?",
+                hi: "भारत के पहले प्रधानमंत्री कौन थे?",
+                options: ["Indira Gandhi", "Jawaharlal Nehru", "Lal Bahadur Shastri", "Morarji Desai"],
+                hiOptions: ["इंदिरा गांधी", "जवाहरलाल नेहरू", "लाल बहादुर शास्त्री", "मोरारजी देसाई"],
+                correct: 1
+            },
+            {
+                en: "Where is the Taj Mahal located?",
+                hi: "ताजमहल कहाँ स्थित है?",
+                options: ["Delhi", "Agra", "Jaipur", "Mumbai"],
+                hiOptions: ["दिल्ली", "आगरा", "जयपुर", "मुंबई"],
+                correct: 1
+            },
+            {
+                en: "What is the capital of India?",
+                hi: "भारत की राजधानी क्या है?",
+                options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"],
+                hiOptions: ["मुंबई", "नई दिल्ली", "कोलकाता", "चेन्नई"],
+                correct: 1
+            },
+            {
+                en: "Which is the largest state in India by area?",
+                hi: "क्षेत्रफल के हिसाब से भारत का सबसे बड़ा राज्य कौन सा है?",
+                options: ["Uttar Pradesh", "Rajasthan", "Madhya Pradesh", "Maharashtra"],
+                hiOptions: ["उत्तर प्रदेश", "राजस्थान", "मध्य प्रदेश", "महाराष्ट्र"],
+                correct: 1
+            },
+            {
+                en: "Who wrote the Indian National Anthem?",
+                hi: "भारतीय राष्ट्रीय गान किसने लिखा?",
+                options: ["Bankim Chandra", "Rabindranath Tagore", "Subhas Chandra Bose", "Sarojini Naidu"],
+                hiOptions: ["बंकिम चंद्र", "रवींद्रनाथ टैगोर", "सुभाष चंद्र बोस", "सरोजिनी नायडू"],
+                correct: 1
+            }
+            // Add more as needed
+        ];
+
+        let current = 0;
+        let score = 0;
+        let selected = false;
+
+        const qEn = document.getElementById('question-en');
+        const qHi = document.getElementById('question-hi');
+        const opts = document.getElementById('options');
+        const nextBtn = document.getElementById('next');
+        const scoreEl = document.getElementById('score');
+
+        function loadQuestion() {
+            const q = questions[current];
+            qEn.textContent = q.en;
+            qHi.textContent = q.hi;
+            opts.innerHTML = '';
+
+            q.options.forEach((opt, i) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.innerHTML = `
+                    <div>${opt}</div>
+                    <div>${q.hiOptions[i]}</div>
+                `;
+                div.onclick = () => selectAnswer(i);
+                opts.appendChild(div);
+            });
+
+            nextBtn.disabled = true;
+            nextBtn.textContent = "अगला प्रश्न";
+            selected = false;
+        }
+
+        function selectAnswer(idx) {
+            if (selected) return;
+            selected = true;
+
+            const q = questions[current];
+            const children = opts.children;
+
+            for (let i = 0; i < children.length; i++) {
+                if (i === q.correct) {
+                    children[i].classList.add('correct');
+                } else if (i === idx) {
+                    children[i].classList.add('wrong');
+                }
+            }
+
+            if (idx === q.correct) {
+                score++;
+            }
+            scoreEl.textContent = `स्कोर: ${score} / ${questions.length}`;
+
+            nextBtn.disabled = false;
+        }
+
+        nextBtn.onclick = () => {
+            current++;
+            if (current < questions.length) {
+                loadQuestion();
+            } else {
+                qEn.textContent = "क्विज़ पूरा हुआ!";
+                qHi.textContent = `अंतिम स्कोर: ${score} / ${questions.length}`;
+                opts.innerHTML = '';
+                nextBtn.style.display = 'none';
+            }
+        };
+
+        loadQuestion();
+    </script>
+</body>
+</html>
