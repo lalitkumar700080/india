@@ -1,341 +1,311 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India Quiz</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #e6f7ff;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 150, 0.1);
-            padding: 30px;
-        }
-        
-        h1 {
-            text-align: center;
-            color: #0066cc;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #cce7ff;
-            padding-bottom: 10px;
-        }
-        
-        .question-container {
-            margin-bottom: 25px;
-            padding: 15px;
-            border-radius: 8px;
-            background-color: #f0f9ff;
-            border-left: 4px solid #4da6ff;
-        }
-        
-        .question-number {
-            font-weight: bold;
-            color: #0066cc;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .question-text {
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .option {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: white;
-            border: 1px solid #cce7ff;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .option:hover {
-            background-color: #e6f2ff;
-        }
-        
-        .option.selected {
-            background-color: #cce7ff;
-            border-color: #4da6ff;
-        }
-        
-        .option-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background-color: #4da6ff;
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
-        .submit-btn {
-            display: block;
-            width: 200px;
-            margin: 30px auto 0;
-            padding: 12px;
-            background-color: #0066cc;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .submit-btn:hover {
-            background-color: #0052a3;
-        }
-        
-        .result {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            display: none;
-        }
-        
-        .correct {
-            background-color: #e6ffe6;
-            color: #006600;
-            border: 1px solid #99cc99;
-        }
-        
-        .incorrect {
-            background-color: #ffe6e6;
-            color: #cc0000;
-            border: 1px solid #ff9999;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Word Quiz</title>
+  <style>
+    :root{
+      --bg-url: url('assets/background.jpg'); /* <-- change background image here */
+      --card-bg: rgba(255,255,255,0.92);
+      --accent: #1f8ef1;
+    }
+    html,body{height:100%; margin:0; font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased}
+    body{
+      background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.35)), var(--bg-url) center/cover no-repeat;
+      display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+
+    .container{
+      width:980px; max-width:100%; display:grid; grid-template-columns: 1fr 360px; gap:20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+      border-radius:16px; overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03));
+      padding:24px;
+      backdrop-filter: blur(6px);
+    }
+
+    .game{
+      background: var(--card-bg);
+      padding:22px; border-radius:12px;
+    }
+    .side{
+      background: rgba(255,255,255,0.9);
+      padding:18px; border-radius:12px;
+      display:flex; flex-direction:column; gap:12px; align-items:stretch;
+    }
+
+    h1{margin:0 0 12px 0; font-size:20px; color:#0b3a66}
+    .question{
+      font-size:18px; margin-bottom:12px;
+    }
+    .photo{
+      height:220px; border-radius:10px; overflow:hidden; background:#eee;
+      display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,0,0,0.06)
+    }
+    .photo img{max-width:100%; max-height:100%; object-fit:cover; display:block}
+
+    .controls{display:flex; gap:8px; margin-top:10px}
+    input[type="text"]{
+      padding:10px 12px; font-size:16px; border-radius:8px; border:1px solid #ddd; flex:1;
+    }
+    button{
+      background:var(--accent); color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer;
+      font-weight:600;
+    }
+    .meta{display:flex; gap:8px; align-items:center; margin-top:12px; font-weight:700}
+    .meta .chip{background:#f6f8fb; padding:8px 10px; border-radius:8px; font-size:14px}
+
+    .list{margin-top:16px; font-size:14px}
+    footer{margin-top:12px; font-size:13px; color:#555}
+
+    /* small screens */
+    @media (max-width:900px){
+      .container{grid-template-columns: 1fr; }
+      .side{order:-1}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>India Quiz</h1>
-        
-        <div id="quiz-container">
-            <!-- Questions will be inserted here by JavaScript -->
-        </div>
-        
-        <button class="submit-btn" id="submit-btn">Submit Answers</button>
-        
-        <div id="result" class="result"></div>
+  <div class="container" role="application">
+    <div class="game" aria-live="polite">
+      <h1>Word Quiz</h1>
+      <div class="question" id="question">Loading...</div>
+
+      <div class="photo" id="photo">
+        <!-- Put a photo related to the current word here.
+             To change the photo, replace assets/photos/<filename> and set imageName in the JS words list. -->
+        <img id="photoImg" src="" alt="word illustration" />
+      </div>
+
+      <div class="controls">
+        <input id="answerInput" type="text" placeholder="Type your answer here" autocomplete="off" />
+        <button id="submitBtn">Check</button>
+        <button id="skipBtn" style="background:#6c757d">Skip</button>
+      </div>
+
+      <div class="meta">
+        <div class="chip">Score: <span id="score">0</span></div>
+        <div class="chip">Streak: <span id="streak">0</span></div>
+        <div class="chip">Time left: <span id="time">60</span>s</div>
+      </div>
+
+      <div class="list" id="feedback"></div>
+
+      <footer>
+        Tip: Background image is in <code>assets/background.jpg</code>. Replace it with your photo.
+      </footer>
     </div>
 
-    <script>
-        // Quiz questions and answers
-        const quizData = [
-            {
-                question: "What is the capital of India?",
-                options: ["Mumbai", "Kolkata", "New Delhi", "Chennai"],
-                correct: 2
-            },
-            {
-                question: "Which river is considered the most sacred in India?",
-                options: ["Yamuna", "Ganga", "Brahmaputra", "Godavari"],
-                correct: 1
-            },
-            {
-                question: "Who was the first Prime Minister of India?",
-                options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Sardar Patel", "Indira Gandhi"],
-                correct: 1
-            },
-            {
-                question: "Which Indian city is known as the Pink City?",
-                options: ["Jaipur", "Jodhpur", "Udaipur", "Jaisalmer"],
-                correct: 0
-            },
-            {
-                question: "What is the national animal of India?",
-                options: ["Lion", "Elephant", "Royal Bengal Tiger", "Peacock"],
-                correct: 2
-            },
-            {
-                question: "Which festival is known as the Festival of Lights in India?",
-                options: ["Holi", "Diwali", "Eid", "Christmas"],
-                correct: 1
-            },
-            {
-                question: "Which monument is located in Agra?",
-                options: ["Qutub Minar", "Red Fort", "Taj Mahal", "India Gate"],
-                correct: 2
-            },
-            {
-                question: "What is the currency of India?",
-                options: ["Rupee", "Dollar", "Yen", "Euro"],
-                correct: 0
-            },
-            {
-                question: "Which Indian state has the longest coastline?",
-                options: ["Kerala", "Tamil Nadu", "Maharashtra", "Gujarat"],
-                correct: 3
-            },
-            {
-                question: "Who wrote the Indian national anthem?",
-                options: ["Rabindranath Tagore", "Bankim Chandra Chatterjee", "Sarojini Naidu", "Mahatma Gandhi"],
-                correct: 0
-            },
-            {
-                question: "Which is the largest state in India by area?",
-                options: ["Madhya Pradesh", "Maharashtra", "Rajasthan", "Uttar Pradesh"],
-                correct: 2
-            },
-            {
-                question: "What is the national bird of India?",
-                options: ["Sparrow", "Peacock", "Parrot", "Eagle"],
-                correct: 1
-            },
-            {
-                question: "Which Indian city is known as the Silicon Valley of India?",
-                options: ["Hyderabad", "Pune", "Bangalore", "Chennai"],
-                correct: 2
-            },
-            {
-                question: "In which year did India gain independence?",
-                options: ["1945", "1947", "1950", "1942"],
-                correct: 1
-            },
-            {
-                question: "Which is the highest mountain peak in India?",
-                options: ["Mount Everest", "Kanchenjunga", "Nanda Devi", "Kamet"],
-                correct: 1
-            },
-            {
-                question: "Which Indian state is known as the 'Land of Five Rivers'?",
-                options: ["Haryana", "Punjab", "Uttarakhand", "Himachal Pradesh"],
-                correct: 1
-            },
-            {
-                question: "Who is known as the Father of the Indian Constitution?",
-                options: ["Mahatma Gandhi", "Jawaharlal Nehru", "B.R. Ambedkar", "Sardar Patel"],
-                correct: 2
-            },
-            {
-                question: "Which is the national sport of India?",
-                options: ["Cricket", "Hockey", "Football", "Kabaddi"],
-                correct: 1
-            },
-            {
-                question: "Which Indian city is located on the banks of the river Hooghly?",
-                options: ["Mumbai", "Kolkata", "Patna", "Varanasi"],
-                correct: 1
-            },
-            {
-                question: "Which is the smallest state in India by area?",
-                options: ["Goa", "Sikkim", "Tripura", "Nagaland"],
-                correct: 0
-            }
-        ];
+    <aside class="side" aria-hidden="false">
+      <div>
+        <strong>Settings</strong>
+        <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+          <label>Timer:</label>
+          <select id="timerSelect">
+            <option value="60">60s</option>
+            <option value="45">45s</option>
+            <option value="30">30s</option>
+            <option value="0">No timer</option>
+          </select>
+        </div>
 
-        // Initialize the quiz
-        document.addEventListener('DOMContentLoaded', function() {
-            const quizContainer = document.getElementById('quiz-container');
-            
-            // Create question elements
-            quizData.forEach((questionData, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'question-container';
-                
-                const questionNumber = document.createElement('div');
-                questionNumber.className = 'question-number';
-                questionNumber.textContent = `Question ${index + 1}`;
-                
-                const questionText = document.createElement('div');
-                questionText.className = 'question-text';
-                questionText.textContent = questionData.question;
-                
-                const optionsDiv = document.createElement('div');
-                optionsDiv.className = 'options';
-                
-                // Create option elements
-                questionData.options.forEach((option, optionIndex) => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.className = 'option';
-                    optionDiv.dataset.optionIndex = optionIndex;
-                    
-                    const optionNumber = document.createElement('span');
-                    optionNumber.className = 'option-number';
-                    optionNumber.textContent = optionIndex + 1;
-                    
-                    const optionText = document.createElement('span');
-                    optionText.textContent = option;
-                    
-                    optionDiv.appendChild(optionNumber);
-                    optionDiv.appendChild(optionText);
-                    
-                    // Add click event to select option
-                    optionDiv.addEventListener('click', function() {
-                        // Remove selected class from all options in this question
-                        const allOptions = optionsDiv.querySelectorAll('.option');
-                        allOptions.forEach(opt => opt.classList.remove('selected'));
-                        
-                        // Add selected class to clicked option
-                        this.classList.add('selected');
-                        
-                        // Store the selected answer
-                        questionData.selected = optionIndex;
-                    });
-                    
-                    optionsDiv.appendChild(optionDiv);
-                });
-                
-                questionDiv.appendChild(questionNumber);
-                questionDiv.appendChild(questionText);
-                questionDiv.appendChild(optionsDiv);
-                
-                quizContainer.appendChild(questionDiv);
-            });
-            
-            // Add event listener to submit button
-            document.getElementById('submit-btn').addEventListener('click', function() {
-                let score = 0;
-                let resultsHTML = '';
-                
-                // Check answers
-                quizData.forEach((questionData, index) => {
-                    if (questionData.selected === questionData.correct) {
-                        score++;
-                        resultsHTML += `<div class="result correct">Question ${index + 1}: Correct!</div>`;
-                    } else {
-                        resultsHTML += `<div class="result incorrect">Question ${index + 1}: Incorrect. The correct answer is: ${questionData.options[questionData.correct]}</div>`;
-                    }
-                });
-                
-                // Display results
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = `<h2>Your Score: ${score}/${quizData.length}</h2>` + resultsHTML;
-                resultDiv.style.display = 'block';
-                
-                // Scroll to results
-                resultDiv.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
+        <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+          <label>Difficulty:</label>
+          <select id="diffSelect">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div style="margin-top:12px;">
+          <strong>Words included</strong>
+          <div id="wordCount" style="margin-top:6px; color:#333">0 words</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <strong>How to replace images / background</strong>
+        <ol style="font-size:13px">
+          <li>Put your background at <code>assets/background.jpg</code>. (Any jpg/png)</li>
+          <li>Photos for words: put images in <code>assets/photos/</code> and set the file name in the JS words list (see code comments).</li>
+          <li>If no photo for a word, a default placeholder is shown.</li>
+        </ol>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button id="restartBtn" style="background:#2ecc71">Restart</button>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+  /* ============= WORDS LIST =============
+     Each entry: {word, clue, difficulty, imageName}
+     imageName is optional - file should be at assets/photos/<imageName>
+     Example: { word: 'apple', clue: 'A fruit that keeps the doctor away', difficulty:'easy', imageName:'apple.jpg'}
+  ======================================*/
+  const WORDS = [
+    {word:'apple', clue:'A common red or green fruit', difficulty:'easy', imageName:'apple.jpg'},
+    {word:'ocean', clue:'A very large body of salt water', difficulty:'easy', imageName:'ocean.jpg'},
+    {word:'mountain', clue:'A large natural elevation of the earth', difficulty:'medium', imageName:'mountain.jpg'},
+    {word:'pyramid', clue:'Ancient triangular tomb often in Egypt', difficulty:'medium', imageName:'pyramid.jpg'},
+    {word:'algorithm', clue:'Step-by-step procedure to solve a problem', difficulty:'hard'},
+    {word:'kaleidoscope', clue:'A tube with mirrors and colored glass creating patterns', difficulty:'hard'},
+    {word:'river', clue:'A natural stream of water that flows to sea', difficulty:'easy', imageName:'river.jpg'},
+    {word:'island', clue:'Land surrounded by water', difficulty:'easy', imageName:'island.jpg'}
+  ];
+
+  // ------------ state -------------
+  let state = {
+    score:0, streak:0, timeLeft:60, timerOn:false, current:null, wordsPool:[], timerId:null
+  };
+
+  // DOM
+  const qEl = document.getElementById('question');
+  const photoImg = document.getElementById('photoImg');
+  const scoreEl = document.getElementById('score');
+  const streakEl = document.getElementById('streak');
+  const timeEl = document.getElementById('time');
+  const answerInput = document.getElementById('answerInput');
+  const feedback = document.getElementById('feedback');
+  const wordCount = document.getElementById('wordCount');
+
+  // controls
+  document.getElementById('submitBtn').addEventListener('click', checkAnswer);
+  document.getElementById('skipBtn').addEventListener('click', nextWord);
+  document.getElementById('restartBtn').addEventListener('click', init);
+  document.getElementById('timerSelect').addEventListener('change', e=> {
+    const v = Number(e.target.value);
+    state.timeLeft = v;
+    timeEl.textContent = v;
+  });
+  document.getElementById('diffSelect').addEventListener('change', e=> {
+    // change pool when difficulty changes
+    preparePool();
+  });
+
+  answerInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') checkAnswer();
+  });
+
+  function preparePool(){
+    const diff = document.getElementById('diffSelect').value;
+    state.wordsPool = WORDS.filter(w => {
+      if(diff === 'easy') return w.difficulty === 'easy';
+      if(diff === 'medium') return w.difficulty === 'easy' || w.difficulty === 'medium';
+      return true;
+    }).slice(); // copy
+    // shuffle
+    for(let i=state.wordsPool.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [state.wordsPool[i], state.wordsPool[j]]=[state.wordsPool[j], state.wordsPool[i]];
+    }
+    wordCount.textContent = state.wordsPool.length + ' words';
+  }
+
+  function init(){
+    state.score=0; state.streak=0;
+    state.timeLeft = Number(document.getElementById('timerSelect').value) || 0;
+    scoreEl.textContent = '0';
+    streakEl.textContent = '0';
+    timeEl.textContent = state.timeLeft;
+    feedback.innerHTML = '';
+    preparePool();
+    nextWord();
+    if(state.timerId) { clearInterval(state.timerId); state.timerId=null; }
+    if(state.timeLeft>0){
+      state.timerOn=true;
+      state.timerId = setInterval(()=> {
+        state.timeLeft--;
+        timeEl.textContent = state.timeLeft;
+        if(state.timeLeft<=0) {
+          clearInterval(state.timerId);
+          state.timerId=null;
+          onTimeUp();
+        }
+      }, 1000);
+    } else {
+      state.timerOn=false;
+    }
+  }
+
+  function nextWord(){
+    answerInput.value='';
+    if(state.wordsPool.length===0) {
+      qEl.textContent = 'No more words in this pool. Restart to play again.';
+      photoImg.src = '';
+      return;
+    }
+    const w = state.wordsPool.pop();
+    state.current = w;
+    qEl.textContent = 'Clue: ' + w.clue;
+    // set photo if exists
+    if(w.imageName){
+      // expects assets/photos/<imageName>
+      photoImg.src = 'assets/photos/' + w.imageName;
+      photoImg.onerror = ()=> { photoImg.src = defaultPlaceholder(); };
+    } else {
+      photoImg.src = defaultPlaceholder();
+    }
+  }
+
+  function defaultPlaceholder(){
+    // data URI SVG placeholder (no external file)
+    const svg = encodeURIComponent(`
+      <svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'>
+        <rect width='100%' height='100%' fill='#e8eef8'/>
+        <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='28' fill='#7a8aa3'>No image</text>
+      </svg>`);
+    return 'data:image/svg+xml;utf8,' + svg;
+  }
+
+  function checkAnswer(){
+    const ans = answerInput.value.trim().toLowerCase();
+    if(!state.current) return;
+    if(ans.length===0) {
+      flash('Type an answer first');
+      return;
+    }
+    const correct = state.current.word.toLowerCase();
+    if(ans === correct){
+      state.score += 10;
+      state.streak += 1;
+      feedback.innerHTML = `<div style="color:green">Correct! +10</div>` + feedback.innerHTML;
+      scoreEl.textContent = state.score;
+      streakEl.textContent = state.streak;
+      nextWord();
+    } else {
+      state.streak = 0;
+      feedback.innerHTML = `<div style="color:#c0392b">Wrong — correct: <strong>${escapeHtml(correct)}</strong></div>` + feedback.innerHTML;
+      streakEl.textContent = state.streak;
+      // small penalty
+      state.score = Math.max(0, state.score - 2);
+      scoreEl.textContent = state.score;
+      nextWord();
+    }
+  }
+
+  function onTimeUp(){
+    feedback.innerHTML = `<div style="font-weight:700; color:#2c3e50">Time's up! Your score: ${state.score}</div>` + feedback.innerHTML;
+    qEl.textContent = "Game over — press Restart to play again";
+    photoImg.src = defaultPlaceholder();
+  }
+
+  function flash(msg){
+    const prev = document.createElement('div');
+    prev.textContent = msg;
+    prev.style.color='#444';
+    feedback.insertBefore(prev, feedback.firstChild);
+    setTimeout(()=> prev.remove(), 2500);
+  }
+
+  function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  // init on load
+  window.addEventListener('load', init);
+  </script>
 </body>
 </html>
